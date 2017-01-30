@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class question extends AppCompatActivity {
     private int id;
     private int numOfCorrect;
-    private int numOfAnswered;
+    private int numOfAnswer;
     private RadioGroup radioGroup;
 
     @Override
@@ -31,6 +31,8 @@ public class question extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
+        Intent intent = getIntent();
+        numOfAnswer = intent.getIntExtra("numOfAnswer", 0);
         setQuestion();
     }
 
@@ -49,19 +51,19 @@ public class question extends AppCompatActivity {
         Button submitButton = (Button)findViewById(R.id.button2);
         submitButton.setEnabled(false);
         if(id == 0) {
-            description.setText("QUESTION " + Integer.toString(numOfAnswered+1)+": Maggie made 4 trips to visit her grandmother. She drove 303.4 miles in all. How far did Maggie drive on each trip?");
+            description.setText("QUESTION " + Integer.toString(numOfAnswer+1)+": Maggie made 4 trips to visit her grandmother. She drove 303.4 miles in all. How far did Maggie drive on each trip?");
             answer1.setText("74.05");
             answer2.setText("75.85");
             answer3.setText("62.9");
             answer4.setText("67.3");
         }else if(id == 1){
-            description.setText("QUESTION " + Integer.toString(numOfAnswered+1)+": Sorry, you can't borrow my pencil. I ..... it myself.");
+            description.setText("QUESTION " + Integer.toString(numOfAnswer+1)+": Sorry, you can't borrow my pencil. I ..... it myself.");
             answer1.setText("was using");
             answer2.setText("using");
             answer3.setText("use");
             answer4.setText("am using");
         }else{
-            description.setText("QUESTION " + Integer.toString(numOfAnswered+1)+": The tendency of objects to resist changes in motion.");
+            description.setText("QUESTION " + Integer.toString(numOfAnswer+1)+": The tendency of objects to resist changes in motion.");
             answer1.setText("Inertia");
             answer2.setText("Force");
             answer3.setText("Mechanical Equilibrium");
@@ -78,6 +80,22 @@ public class question extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if(numOfAnswer == 0) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(getApplicationContext(), question.class);
+            intent.putExtra("numOfAnswer", --numOfAnswer);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
+        return;
+    }
+
 
     public void submitAnswer(View view){
         Intent intent = new Intent(question.this, answer.class);
@@ -86,7 +104,7 @@ public class question extends AppCompatActivity {
         int userAnswer = radioGroup.indexOfChild(radioButton);
         intent.putExtra("MyData", id);
         intent.putExtra("selectedAnswer", userAnswer);
-        numOfAnswered++;
+        numOfAnswer++;
         if(id == 0){
             if(userAnswer == 1){
                 numOfCorrect++;
@@ -100,7 +118,7 @@ public class question extends AppCompatActivity {
                 numOfCorrect++;
             }
         }
-        intent.putExtra("numOfAnswer", numOfAnswered);
+        intent.putExtra("numOfAnswer", numOfAnswer);
         intent.putExtra("numOfCorrect", numOfCorrect);
         startActivity(intent);
     }
