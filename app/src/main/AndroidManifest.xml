@@ -16,8 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".TopicDescr" />
-        <activity android:name=".question" />
-        <activity android:name=".answer"></activity>
     </application>
 
 </manifest>
