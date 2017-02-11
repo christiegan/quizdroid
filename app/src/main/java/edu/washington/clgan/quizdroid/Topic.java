@@ -3,6 +3,7 @@ package edu.washington.clgan.quizdroid;
 import java.util.ArrayList;
 
 public class Topic {
+    private int imageID;
     private String title;
     private String shortDescr;
     private String longDescr;
@@ -10,6 +11,7 @@ public class Topic {
 
     public Topic(String title){
         this.title = title;
+        this.imageID = R.drawable.clipart;
     }
 
     public void setShortDescr(String shortDescr){
@@ -26,6 +28,10 @@ public class Topic {
 
     public String getTitle(){
         return title;
+    }
+
+    public int getImageID(){
+        return imageID;
     }
 
     public String getShortDescr(){
