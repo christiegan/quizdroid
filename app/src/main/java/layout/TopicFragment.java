@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import edu.washington.clgan.quizdroid.QuizApp;
 import edu.washington.clgan.quizdroid.R;
+import edu.washington.clgan.quizdroid.Topic;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,14 +84,9 @@ public class TopicFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView description = (TextView)view.findViewById(R.id.textView);
-        if(id == 0){
-            description.setText("You will begin taking a Mathematics quiz. Mathematics is the study of topics such as quantity (numbers), structure, space, and change. There are 5 questions.");
-        }else if(id == 1){
-            description.setText("You will begin taking an English quiz. The meaning of English as a subject is to educate on the English language in " +
-                    "general and to aid in the understanding and employment of the language. The subject of English is most often split into two main topics; English Literature and English Language. There are 5 questions");
-        }else{
-            description.setText("You will begin taking a Physics quiz. Physics is the branch of science concerned with the nature and properties of matter and energy. There are 5 questions");
-        }
+        QuizApp mApplication = (QuizApp)getActivity().getApplicationContext();
+        ArrayList<Topic> topics = mApplication.getTopics();
+        description.setText(topics.get(id).getLongDescr() + " " + topics.get(id).getShortDescr());
     }
 
     // TODO: Rename method, update argument and hook method into UI event

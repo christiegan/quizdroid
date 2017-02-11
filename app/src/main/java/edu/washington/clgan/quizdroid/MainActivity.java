@@ -18,7 +18,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final ListView listview = (ListView) findViewById(R.id.listView);
-        String[] values = new String[] { "Math", "English", "Physics" };
+
+        QuizApp mApplication = (QuizApp)getApplicationContext();
+        ArrayList<Topic> topics = mApplication.getTopics();
+        String[] values = new String[3];
+        for(int i = 0; i < topics.size(); i++){
+            values[i] = topics.get(i).getTitle();
+        }
 
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {

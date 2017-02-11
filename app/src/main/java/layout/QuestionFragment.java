@@ -12,7 +12,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import edu.washington.clgan.quizdroid.QuizApp;
 import edu.washington.clgan.quizdroid.R;
+import edu.washington.clgan.quizdroid.Topic;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +63,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener{
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, currentq);
         args.putInt(ARG_PARAM2, totalq);
-        args.putInt(ARG_PARAM3, totalq);
+        args.putInt(ARG_PARAM3, correctq);
         args.putInt(ARG_PARAM4, id);
         fragment.setArguments(args);
         return fragment;
@@ -127,25 +131,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener{
         answer4.setChecked(false);
         submitButton = (Button)view.findViewById(R.id.button2);
         submitButton.setEnabled(false);
-        if(id == 0) {
-            description.setText("QUESTION " + Integer.toString(currentq+1)+": Maggie made 4 trips to visit her grandmother. She drove 303.4 miles in all. How far did Maggie drive on each trip?");
-            answer1.setText("74.05");
-            answer2.setText("75.85");
-            answer3.setText("62.9");
-            answer4.setText("67.3");
-        }else if(id == 1){
-            description.setText("QUESTION " + Integer.toString(currentq+1)+": Sorry, you can't borrow my pencil. I ..... it myself.");
-            answer1.setText("was using");
-            answer2.setText("using");
-            answer3.setText("use");
-            answer4.setText("am using");
-        }else{
-            description.setText("QUESTION " + Integer.toString(currentq+1)+": The tendency of objects to resist changes in motion.");
-            answer1.setText("Inertia");
-            answer2.setText("Force");
-            answer3.setText("Mechanical Equilibrium");
-            answer4.setText("Equilibrium rule");
-        }
+        QuizApp mApplication = (QuizApp)getActivity().getApplicationContext();
+        ArrayList<Topic> topics = mApplication.getTopics();
+        description.setText(topics.get(id).getQuestions().get(currentq).getQuestionAnswer().get(0));
+        answer1.setText(topics.get(id).getQuestions().get(currentq).getQuestionAnswer().get(1));
+        answer2.setText(topics.get(id).getQuestions().get(currentq).getQuestionAnswer().get(2));
+        answer3.setText(topics.get(id).getQuestions().get(currentq).getQuestionAnswer().get(3));
+        answer4.setText(topics.get(id).getQuestions().get(currentq).getQuestionAnswer().get(4));
         radioGroup = (RadioGroup)view.findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -178,18 +170,10 @@ public class QuestionFragment extends Fragment implements View.OnClickListener{
         int userAnswer = radioGroup.indexOfChild(radioButton);
 
         totalq++;
-        if(id == 0){
-            if(userAnswer == 1){
-                correctq++;
-            }
-        }else if(id == 1){
-            if(userAnswer == 3){
-                correctq++;
-            }
-        }else{
-            if(userAnswer == 0){
-                correctq++;
-            }
+        QuizApp mApplication = (QuizApp)getActivity().getApplicationContext();
+        ArrayList<Topic> topics = mApplication.getTopics();
+        if(userAnswer == topics.get(id).getQuestions().get(currentq).getCorrectAns()){
+            correctq++;
         }
         AnswerFragment answerfrag = AnswerFragment.newInstance(currentq,totalq,correctq, id, userAnswer);
         FragmentTransaction tx = getFragmentManager().beginTransaction();
