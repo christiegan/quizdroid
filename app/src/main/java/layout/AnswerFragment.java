@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import edu.washington.clgan.quizdroid.MainActivity;
+import edu.washington.clgan.quizdroid.QuizApp;
 import edu.washington.clgan.quizdroid.R;
+import edu.washington.clgan.quizdroid.Topic;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,41 +92,13 @@ public class AnswerFragment extends Fragment implements View.OnClickListener {
         TextView selectedAnswer = (TextView)view.findViewById(R.id.textView3);
 
         TextView answer = (TextView)view.findViewById(R.id.textView4);
-        if(id == 0){
-            if(choiceid == 0){
-                selectedAnswer.setText("Your selected answer is choice A: 74.05");
-            }else if(choiceid == 1){
-                selectedAnswer.setText("Your selected answer is choice B: 75.85");
-            }else if(choiceid == 2){
-                selectedAnswer.setText("Your selected answer is choice C: 62.9");
-            }else if(choiceid == 3){
-                selectedAnswer.setText("Your selected answer is choice D: 67.3");
-            }
-            answer.setText("The correct answer is choice B: 75.85");
-        }else if(id == 1){
-            if(choiceid == 0){
-                selectedAnswer.setText("Your selected answer is choice A: was using");
-            }else if(choiceid == 1){
-                selectedAnswer.setText("Your selected answer is choice B: using");
-            }else if(choiceid == 2){
-                selectedAnswer.setText("Your selected answer is choice C: use");
-            }else if(choiceid == 3){
-                selectedAnswer.setText("Your selected answer is choice D: am using");
-            }
-            answer.setText("The correct answer is choice D: am using");
-        }else if(id == 2){
-            if(choiceid == 0){
-                selectedAnswer.setText("Your selected answer is choice A: Inertia");
-            }else if(choiceid == 1){
-                selectedAnswer.setText("Your selected answer is choice B: Force");
-            }else if(choiceid == 2){
-                selectedAnswer.setText("Your selected answer is choice C: Mechanical Equilibrium");
-            }else if(choiceid == 3){
-                selectedAnswer.setText("Your selected answer is choice D: Equilibrium rule");
-            }
-            answer.setText("The correct answer is choice A: Inertia");
-        }
 
+        QuizApp mApplication = (QuizApp)getActivity().getApplicationContext();
+        ArrayList<Topic> topics = mApplication.getTopics();
+        int realAnswer = topics.get(id).getQuestions().get(currentq).getCorrectAns()+1;
+        int youranswer = choiceid + 1;
+        selectedAnswer.setText("Your selected answer is choice number " + youranswer + ".");
+        answer.setText("The correct answer is choice number " + realAnswer + ".");
 
         TextView score = (TextView)view.findViewById(R.id.textView5);
         String displayScore = "You have " + correctq + " out of " + totalq + " correct";
