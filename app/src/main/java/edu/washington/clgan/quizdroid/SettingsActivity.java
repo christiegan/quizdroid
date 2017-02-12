@@ -15,6 +15,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private String url;
     private int minutes;
+    private Timer t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,10 @@ public class SettingsActivity extends AppCompatActivity {
     public void onClick(View view){
         url = urlView.getText().toString();
         minutes = Integer.parseInt(minView.getText().toString());
-        Timer t = new Timer(false);
+        if(t != null){
+            t.cancel();
+        }
+        t = new Timer(false);
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
