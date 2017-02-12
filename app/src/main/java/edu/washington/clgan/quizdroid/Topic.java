@@ -3,23 +3,18 @@ package edu.washington.clgan.quizdroid;
 import java.util.ArrayList;
 
 public class Topic {
-    private int imageID;
     private String title;
-    private String shortDescr;
-    private String longDescr;
+    private String desc;
     private ArrayList<Quiz> questions;
 
-    public Topic(String title){
+    public Topic(String title, String desc, ArrayList<Quiz> questions){
         this.title = title;
-        this.imageID = R.drawable.clipart;
+        this.desc = desc;
+        this.questions = questions;
     }
 
-    public void setShortDescr(String shortDescr){
-        this.shortDescr = shortDescr;
-    }
-
-    public void setLongDescr(String longDescr){
-        this.longDescr = longDescr;
+    public void setDesc(String desc){
+        this.desc = desc;
     }
 
     public void setQuestions(ArrayList<Quiz> questions){
@@ -30,16 +25,8 @@ public class Topic {
         return title;
     }
 
-    public int getImageID(){
-        return imageID;
-    }
-
-    public String getShortDescr(){
-        return shortDescr;
-    }
-
-    public String getLongDescr(){
-        return longDescr;
+    public String getDesc(){
+        return desc;
     }
 
     public ArrayList<Quiz> getQuestions(){

@@ -86,7 +86,7 @@ public class TopicFragment extends Fragment implements View.OnClickListener {
         TextView description = (TextView)view.findViewById(R.id.textView);
         QuizApp mApplication = (QuizApp)getActivity().getApplicationContext();
         ArrayList<Topic> topics = mApplication.getTopics();
-        description.setText(topics.get(id).getLongDescr() + " " + topics.get(id).getShortDescr());
+        description.setText(topics.get(id).getDesc());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
