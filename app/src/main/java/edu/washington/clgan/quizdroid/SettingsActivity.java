@@ -1,5 +1,7 @@
 package edu.washington.clgan.quizdroid;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,6 +26,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         urlView = (EditText)findViewById(R.id.urlVal);
         minView = (EditText)findViewById(R.id.refreshid);
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        url = sharedPref.getString("myUrl", "");
+        minutes = sharedPref.getInt("myMinutes", 0);
+        urlView.setText(url);
+        String temp =  Integer.toString(minutes);
+        minView.setText(temp);
     }
 
 
@@ -31,6 +39,11 @@ public class SettingsActivity extends AppCompatActivity {
     public void onClick(View view){
         url = urlView.getText().toString();
         minutes = Integer.parseInt(minView.getText().toString());
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("myUrl", url);
+        editor.putInt("myMinutes", minutes);
+        editor.commit();
         if(t != null){
             t.cancel();
         }
