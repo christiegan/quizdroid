@@ -1,5 +1,7 @@
 package edu.washington.clgan.quizdroid;
 
+import android.os.Environment;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +54,7 @@ public class TopicRepository implements ITopicRespository {
     public String loadJSONFromAsset() {
         String json = null;
         try {
-            InputStream inputstream = new FileInputStream("/data/questions.json");
+            InputStream inputstream = new FileInputStream(Environment.getExternalStorageDirectory().toString() + "/questions.json");
             int size = inputstream.available();
             byte[] buffer = new byte[size];
             inputstream.read(buffer);

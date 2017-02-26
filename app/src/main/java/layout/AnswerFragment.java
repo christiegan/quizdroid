@@ -17,6 +17,7 @@ import edu.washington.clgan.quizdroid.MainActivity;
 import edu.washington.clgan.quizdroid.QuizApp;
 import edu.washington.clgan.quizdroid.R;
 import edu.washington.clgan.quizdroid.Topic;
+import edu.washington.clgan.quizdroid.TopicDescr;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -166,6 +167,7 @@ public class AnswerFragment extends Fragment implements View.OnClickListener {
             tx.commit();
         } else {
             Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("Anything", "ok");
             startActivity(intent);
         }
 

@@ -26,7 +26,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
         android:enabled="false"
-        android:onClick="submitAnswer"
         android:layout_gravity="right|bottom" />
 
     <RadioGroup

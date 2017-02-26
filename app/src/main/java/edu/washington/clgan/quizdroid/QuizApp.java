@@ -5,8 +5,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class QuizApp extends android.app.Application {
-    private static ArrayList<Topic> topics;
     private static QuizApp singleton;
+    private static ArrayList<Topic> topics;
 
     public static QuizApp getInstance(){
         return singleton;
@@ -16,12 +16,14 @@ public class QuizApp extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         Log.i("QuizApp", "being loaded and run");
-        TopicRepository tr = new TopicRepository();
-        topics = tr.getTopics();
         singleton = this;
     }
 
     public ArrayList<Topic> getTopics(){
         return this.topics;
+    }
+
+    public void setTopics(ArrayList<Topic> newTopics){
+        this.topics = newTopics;
     }
 }
